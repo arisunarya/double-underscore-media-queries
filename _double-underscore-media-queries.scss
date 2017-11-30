@@ -1,0 +1,72 @@
+$media-queries: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1440px
+) !default;
+
+@mixin __($keyword: null) {
+	@function get-index($key) {
+		@each $media, $query in $media-queries {
+			$index: index($media-queries, ($media $query));
+			
+			@if $media == $key {
+				@return $index;
+			}
+		}
+	}
+
+	@if $keyword {
+		// only targeted breakpoint
+		@if length($keyword) == 1 and map-has-key($media-queries, $keyword) {
+			@if get-index($keyword) == 1 {
+				@media (max-width: nth(nth($media-queries, get-index($keyword) + 1), 2) - 1) {
+					@content;
+				}
+			}
+
+			@else if get-index($keyword) == length($media-queries) {
+				@media (min-width: map-get($media-queries, $keyword)) {
+					@content;
+				}
+			}
+
+			@else {
+				@media (min-width: map-get($media-queries, $keyword)) and (max-width: nth(nth($media-queries, get-index($keyword) + 1), 2) - 1) {
+					@content;
+				}
+			}
+		}
+
+		// to target up or down
+		@if length($keyword) == 2 and map-has-key($media-queries, nth($keyword, 1)) {
+			@if nth($keyword, 2) == 'up' and get-index(nth($keyword, 1)) != 1 {
+				@media (min-width: map-get($media-queries, nth($keyword, 1))) {
+					@content;
+				}
+			}
+
+			@if nth($keyword, 2) == 'down' and get-index(nth($keyword, 1)) != length($media-queries) {
+				@media (max-width: nth(nth($media-queries, get-index(nth($keyword, 1)) + 1), 2) - 1) {
+					@content;
+				}
+			}
+		}
+
+		// target specific breakpoints
+		@if length($keyword) == 3 
+			and (map-has-key($media-queries, nth($keyword, 1)))
+			and (map-has-key($media-queries, nth($keyword, 3)))
+			and (nth($keyword, 2) ==  'to')
+			and (nth($keyword, 1) != nth($keyword, 3))
+			and (get-index(nth($keyword, 1)) != 1)
+			and (get-index(nth($keyword, 3)) != length($media-queries))
+			and (map-get($media-queries, nth($keyword, 1)) < nth(nth($media-queries, get-index(nth($keyword, 3)) + 1), 2) - 1) {
+			@media (min-width: map-get($media-queries, nth($keyword, 1))) and (max-width: nth(nth($media-queries, get-index(nth($keyword, 3)) + 1), 2) - 1) {
+				@content;
+			}
+		}
+	}
+}
