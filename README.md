@@ -67,7 +67,7 @@ $__media-queries: (
 - if you have less than 5 breakpoints, the `'to'` keywords will not going to work, because it's useless, use keywords `'up'` and `'down'` instead.
 - the smallest breakpoint can't use `'up'` keywords
 - the biggest breakpoint can't use `'down'` keywords
-- assuming `'xs'` is smallest and `'xxl'` largest breakpoints, of course you can't use `'xs to xxl'` keywords, that's just hilarious! `:joy:`
+- assuming `'xs'` is smallest and `'xxl'` largest breakpoints, of course you can't use `'xs to xxl'` keywords, that's just hilarious! :joy:
 
 
 ## That's it, what's next?
