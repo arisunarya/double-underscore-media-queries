@@ -1,5 +1,5 @@
 # double-underscore-media-queries
-(i know, it's long names! can't find a good one `:neutral_face:`)
+(i know, it's long names! can't find a good one :neutral_face:)
 is the most readable syntax and manageable media queries in your sass code!
 
 ## Installation
