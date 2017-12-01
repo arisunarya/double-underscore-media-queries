@@ -3,7 +3,7 @@
 is the most readable syntax and manageable media queries in your sass code!
 
 ## Installation
-download the files, and import in your main sass files `@import 'path/to/double-underscore-media-queries';`
+download the sass files [here](https://raw.githubusercontent.com/arisunarya/double-underscore-media-queries/master/_double-underscore-media-queries.scss), and import in your main sass files `@import 'path/to/double-underscore-media-queries';`
 
 ## Example of Usage
 ``` scss
