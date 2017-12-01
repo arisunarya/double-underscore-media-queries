@@ -1,4 +1,4 @@
-$media-queries: (
+$__media-queries: (
 	xs: 0,
 	sm: 576px,
 	md: 768px,
@@ -9,8 +9,8 @@ $media-queries: (
 
 @mixin __($keyword: null) {
 	@function get-index($key) {
-		@each $media, $query in $media-queries {
-			$index: index($media-queries, ($media $query));
+		@each $media, $query in $__media-queries {
+			$index: index($__media-queries, ($media $query));
 			
 			@if $media == $key {
 				@return $index;
@@ -20,36 +20,36 @@ $media-queries: (
 
 	@if $keyword {
 		// only targeted breakpoint
-		@if length($keyword) == 1 and map-has-key($media-queries, $keyword) {
+		@if length($keyword) == 1 and map-has-key($__media-queries, $keyword) {
 			@if get-index($keyword) == 1 {
-				@media (max-width: nth(nth($media-queries, get-index($keyword) + 1), 2) - 1) {
+				@media (max-width: nth(nth($__media-queries, get-index($keyword) + 1), 2) - 1) {
 					@content;
 				}
 			}
 
-			@else if get-index($keyword) == length($media-queries) {
-				@media (min-width: map-get($media-queries, $keyword)) {
+			@else if get-index($keyword) == length($__media-queries) {
+				@media (min-width: map-get($__media-queries, $keyword)) {
 					@content;
 				}
 			}
 
 			@else {
-				@media (min-width: map-get($media-queries, $keyword)) and (max-width: nth(nth($media-queries, get-index($keyword) + 1), 2) - 1) {
+				@media (min-width: map-get($__media-queries, $keyword)) and (max-width: nth(nth($__media-queries, get-index($keyword) + 1), 2) - 1) {
 					@content;
 				}
 			}
 		}
 
 		// to target up or down
-		@if length($keyword) == 2 and map-has-key($media-queries, nth($keyword, 1)) {
+		@if length($keyword) == 2 and map-has-key($__media-queries, nth($keyword, 1)) {
 			@if nth($keyword, 2) == 'up' and get-index(nth($keyword, 1)) != 1 {
-				@media (min-width: map-get($media-queries, nth($keyword, 1))) {
+				@media (min-width: map-get($__media-queries, nth($keyword, 1))) {
 					@content;
 				}
 			}
 
-			@if nth($keyword, 2) == 'down' and get-index(nth($keyword, 1)) != length($media-queries) {
-				@media (max-width: nth(nth($media-queries, get-index(nth($keyword, 1)) + 1), 2) - 1) {
+			@if nth($keyword, 2) == 'down' and get-index(nth($keyword, 1)) != length($__media-queries) {
+				@media (max-width: nth(nth($__media-queries, get-index(nth($keyword, 1)) + 1), 2) - 1) {
 					@content;
 				}
 			}
@@ -57,14 +57,14 @@ $media-queries: (
 
 		// target specific breakpoints
 		@if length($keyword) == 3 
-			and (map-has-key($media-queries, nth($keyword, 1)))
-			and (map-has-key($media-queries, nth($keyword, 3)))
+			and (map-has-key($__media-queries, nth($keyword, 1)))
+			and (map-has-key($__media-queries, nth($keyword, 3)))
 			and (nth($keyword, 2) ==  'to')
 			and (nth($keyword, 1) != nth($keyword, 3))
 			and (get-index(nth($keyword, 1)) != 1)
-			and (get-index(nth($keyword, 3)) != length($media-queries))
-			and (map-get($media-queries, nth($keyword, 1)) < nth(nth($media-queries, get-index(nth($keyword, 3)) + 1), 2) - 1) {
-			@media (min-width: map-get($media-queries, nth($keyword, 1))) and (max-width: nth(nth($media-queries, get-index(nth($keyword, 3)) + 1), 2) - 1) {
+			and (get-index(nth($keyword, 3)) != length($__media-queries))
+			and (map-get($__media-queries, nth($keyword, 1)) < nth(nth($__media-queries, get-index(nth($keyword, 3)) + 1), 2) - 1) {
+			@media (min-width: map-get($__media-queries, nth($keyword, 1))) and (max-width: nth(nth($__media-queries, get-index(nth($keyword, 3)) + 1), 2) - 1) {
 				@content;
 			}
 		}
